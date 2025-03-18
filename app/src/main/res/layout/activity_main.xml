@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/favorites"
         app:layout_constraintTop_toBottomOf="@id/barrierContent"
         tools:srcCompat="@drawable/baseline_favorite_border_24" />
 
@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="10"
+        android:text="@string/favorite_count"
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintStart_toEndOf="@id/likes"
         app:layout_constraintTop_toTopOf="@id/likes" />
@@ -99,20 +99,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
+        android:contentDescription="@string/shared"
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintStart_toEndOf="@id/favorite_count"
         app:layout_constraintTop_toTopOf="@id/likes"
         tools:srcCompat="@drawable/baseline_share_24" />
 
     <TextView
+        android:id="@+id/shared_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="20"
+        android:text="@string/shared_count"
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintStart_toEndOf="@id/shared"
-        app:layout_constraintTop_toTopOf="@id/likes"
-        tools:text="20" />
+        app:layout_constraintTop_toTopOf="@id/likes" />
 
 
     <ImageView
@@ -120,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/visible"
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintEnd_toStartOf="@id/visible_count"
         app:layout_constraintTop_toTopOf="@id/likes"
@@ -130,7 +131,7 @@
         android:id="@+id/visible_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="30"
+        android:text="@string/visible_count"
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/likes" />
