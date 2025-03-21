@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/common_spacing"
+    android:paddingTop="48dp"
+    android:paddingHorizontal="@dimen/common_spacing"
     tools:context=".MainActivity">
 
     <ImageView
@@ -15,8 +16,7 @@
         android:contentDescription="@string/avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:srcCompat="@drawable/ic_netology_48dp" />
+        android:src="@drawable/ic_netology_48dp"/>
 
     <TextView
         android:id="@+id/author"
@@ -29,8 +29,7 @@
         app:layout_constraintEnd_toStartOf="@id/menu"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="@string/author" />
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <TextView
         android:id="@+id/published"
@@ -40,8 +39,8 @@
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toStartOf="@id/menu"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toBottomOf="@id/author"
-        tools:text="@string/published" />
+        app:layout_constraintTop_toBottomOf="@id/author"/>
+
 
     <ImageView
         android:id="@+id/menu"
@@ -65,8 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="16dp"
-        app:layout_constraintTop_toTopOf="@id/barrierMenu"
-        tools:text="@string/content" />
+        app:layout_constraintTop_toTopOf="@id/barrierMenu"/>
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierContent"
@@ -82,14 +80,14 @@
         android:layout_marginTop="@dimen/common_spacing"
         android:contentDescription="@string/favorites"
         app:layout_constraintTop_toBottomOf="@id/barrierContent"
-        tools:srcCompat="@drawable/baseline_favorite_border_24" />
+        android:src="@drawable/ic_like_24"/>
 
     <TextView
         android:id="@+id/favorite_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/favorite_count"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintStart_toEndOf="@id/likes"
         app:layout_constraintTop_toTopOf="@id/likes" />
@@ -103,14 +101,14 @@
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintStart_toEndOf="@id/favorite_count"
         app:layout_constraintTop_toTopOf="@id/likes"
-        tools:srcCompat="@drawable/baseline_share_24" />
+        android:src="@drawable/ic_share_24"/>
 
     <TextView
         android:id="@+id/shared_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/shared_count"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintStart_toEndOf="@id/shared"
         app:layout_constraintTop_toTopOf="@id/likes" />
@@ -125,13 +123,13 @@
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintEnd_toStartOf="@id/visible_count"
         app:layout_constraintTop_toTopOf="@id/likes"
-        tools:srcCompat="@drawable/baseline_visibility_24" />
+        android:src="@drawable/ic_visibility_24"/>
 
     <TextView
         android:id="@+id/visible_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/visible_count"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/likes" />
