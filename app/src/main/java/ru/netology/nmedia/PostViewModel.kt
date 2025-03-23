@@ -10,7 +10,4 @@ class PostViewModel : ViewModel() {
     fun like() = repository.like()
     fun share() = repository.share()
     fun visible() = repository.visible()
-    fun getLikedCountShort() = repository.getLikedCountShort()
-    fun getSharedCountShort() = repository.getSharedCountShort()
-    fun getVisibledCountShort() = repository.getVisibledCountShort()
 }

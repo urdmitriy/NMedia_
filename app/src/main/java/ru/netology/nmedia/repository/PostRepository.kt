@@ -8,8 +8,4 @@ interface PostRepository {
     fun like()
     fun share()
     fun visible()
-    fun getShortCount(count: Long): String
-    fun getLikedCountShort(): String
-    fun getSharedCountShort(): String
-    fun getVisibledCountShort(): String
 }

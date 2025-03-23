@@ -3,6 +3,7 @@ package ru.netology.nmedia
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import ru.netology.nmedia.GetShortCount.getShortCount
 import ru.netology.nmedia.databinding.ActivityMainBinding
 
 
@@ -27,25 +28,24 @@ class MainActivity : AppCompatActivity() {
                         R.drawable.ic_like_24
                     }
                 )
-                favoriteCount.text = viewModel.getLikedCountShort()
-                sharedCount.text = viewModel.getSharedCountShort()
-                visibleCount.text = viewModel.getVisibledCountShort()
+                favoriteCount.text = getShortCount(post.likedCount)
+                sharedCount.text = getShortCount(post.sharedCount)
+                visibleCount.text = getShortCount(post.visibledCount)
             }
         }
 
         binding.likes.setOnClickListener {
             viewModel.like()
-            binding.favoriteCount.text = viewModel.getLikedCountShort()
         }
 
         binding.shared.setOnClickListener {
             viewModel.share()
-            binding.sharedCount.text = viewModel.getSharedCountShort()
         }
 
         binding.visible.setOnClickListener{
             viewModel.visible()
-            binding.visibleCount.text = viewModel.getVisibledCountShort()
         }
     }
 }
+
+

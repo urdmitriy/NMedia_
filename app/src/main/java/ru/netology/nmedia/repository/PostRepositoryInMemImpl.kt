@@ -1,6 +1,5 @@
 package ru.netology.nmedia.repository
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dto.Post
@@ -41,15 +40,5 @@ class PostRepositoryInMemImpl : PostRepository {
         data.value = post
     }
 
-    @SuppressLint("DefaultLocale")
-    override fun getShortCount(count: Long): String = when {
-        count >= 10_000_000 -> String.format("%.0f", (count - count % 1_000_000).toFloat()/1_000_000) + "M"
-        count >= 1_000_000 -> String.format("%.1f", (count - count % 100_000).toFloat()/1_000_000) + "M"
-        count >= 10_000 -> String.format("%.0f", (count - count % 1000).toFloat()/1_000) + "k"
-        count >= 1_000 -> String.format("%.1f", (count - count % 100).toFloat()/1_000) + "k"
-        else -> count.toString()}
 
-    override fun getLikedCountShort(): String = getShortCount(post.likedCount)
-    override fun getSharedCountShort(): String = getShortCount(post.sharedCount)
-    override fun getVisibledCountShort(): String = getShortCount(post.visibledCount)
 }
