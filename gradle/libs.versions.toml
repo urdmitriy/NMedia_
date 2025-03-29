@@ -11,6 +11,8 @@ constraintlayout = "2.1.4"
 lifecycle = "2.8.7"
 activity = "1.10.1"
 arch_version = "2.2.0"
+activityVersion = "1.10.1"
+recyclerviewVersion = "1.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,7 +26,8 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-lifecycle-viewmodel= { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 androidx-arch-core = { group = "androidx.arch.core", name = "core-testing", version.ref = "arch_version" }
-
+activity = { group = "androidx.activity", name = "activity", version.ref = "activityVersion" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerviewVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
