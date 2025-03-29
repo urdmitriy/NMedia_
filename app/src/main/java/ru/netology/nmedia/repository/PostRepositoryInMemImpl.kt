@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dto.Post
 
 class PostRepositoryInMemImpl : PostRepository {
+    private var nextId: Long = 1L
+
     private var posts = listOf(
         Post(
-            id = 1,
+            id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
             content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "21 мая в 18:36",
@@ -17,7 +19,7 @@ class PostRepositoryInMemImpl : PostRepository {
             visibledCount = 10_100_110
         ),
         Post(
-            id = 2,
+            id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
             content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "25 мая в 18:36",
@@ -27,7 +29,7 @@ class PostRepositoryInMemImpl : PostRepository {
             visibledCount = 10
         ),
         Post(
-            id = 3,
+            id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
             content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "28 мая в 18:36",
@@ -36,7 +38,8 @@ class PostRepositoryInMemImpl : PostRepository {
             sharedCount = 5,
             visibledCount = 1
         )
-    )
+    ).reversed()
+    
     private val data = MutableLiveData(posts)
 
     override fun getAll(): LiveData<List<Post>> = data
@@ -66,6 +69,30 @@ class PostRepositoryInMemImpl : PostRepository {
     override fun visibleById(id: Long) {
         posts = posts.map {
             if (it.id != id) it else it.copy(visibledCount = it.visibledCount + 1)
+        }
+        data.value = posts
+    }
+
+    override fun removeById(id: Long) {
+        posts = posts.filter { it.id != id }
+        data.value = posts
+    }
+
+    override fun save(post: Post) {
+        if (post.id == 0L) {
+            posts = listOf(
+                post.copy(
+                    id = nextId++,
+                    author = "Me",
+                    likedByMe = false,
+                    published = "Now",
+                )
+            ) + posts
+            data.value = posts
+            return
+        }
+        posts = posts.map{
+            if (it.id != post.id) it else it.copy(content =  post.content)
         }
         data.value = posts
     }
