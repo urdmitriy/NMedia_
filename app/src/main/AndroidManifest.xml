@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NMedia_"
         tools:targetApi="31">
-        <activity
-            android:name=".PostCardActivity"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
