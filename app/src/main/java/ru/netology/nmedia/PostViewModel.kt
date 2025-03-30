@@ -46,4 +46,6 @@ class PostViewModel : ViewModel() {
     fun shareById(id: Long) = repository.shareById(id)
     fun visibleById(id: Long) = repository.visibleById(id)
     fun removeById(id: Long) = repository.removeById(id)
+
+
 }
