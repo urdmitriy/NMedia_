@@ -3,8 +3,11 @@ package ru.netology.nmedia
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -14,10 +17,14 @@ import ru.netology.nmedia.utils.AndroidUtils
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: PostViewModel by viewModels()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
+        enableEdgeToEdge() // "Включаем" адаптацию к полноэкранному режиму
         setContentView(binding.root)
+        applyInset(binding.root) // Устанавливаем отступы с учётом клавиатуры
 
         val adapter = PostsAdapter (object : OnInteractionListener {
             override fun onLike(post: Post) {
@@ -60,6 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.chancel.setOnClickListener{
             with(binding.content) {
+                viewModel.chancelEdit()
                 setText("")
                 clearFocus()
                 AndroidUtils.hideKeyboard(this)
@@ -81,10 +89,26 @@ class MainActivity : AppCompatActivity() {
                 viewModel.changeContent(text.toString())
                 viewModel.save()
 
+                binding.groupEdit.visibility = View.GONE
                 setText("")
                 clearFocus()
                 AndroidUtils.hideKeyboard(this)
+
             }
+        }
+    }
+    private fun applyInset(main: View) {
+        ViewCompat.setOnApplyWindowInsetsListener(main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
+            val isImeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
+            v.setPadding(
+                v.paddingLeft,
+                systemBars.top,
+                v.paddingRight,
+                if (isImeVisible) imeInsets.bottom else systemBars.bottom
+            )
+            insets
         }
     }
 }
