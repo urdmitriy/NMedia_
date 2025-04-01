@@ -7,4 +7,9 @@
     <string name="visible">Просмотры</string>
     <string name="favorites">Избранное</string>
     <string name="shared">Поделились</string>
+    <string name="remove">Удалить</string>
+    <string name="post_text" >Текст поста</string>
+    <string name="description_post_like" >Нравится</string>
+    <string name="edit">Редактировать</string>
+    <string name="chancel">Отмена</string>
 </resources>

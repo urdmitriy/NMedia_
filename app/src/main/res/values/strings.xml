@@ -12,4 +12,9 @@
     <string name="visible">Visible</string>
     <string name="visible_count" translatable="false">30</string>
     <string name="shared">Shared</string>
+    <string name="remove">Remove</string>
+    <string name="post_text" >Post text</string>
+    <string name="description_post_like" >Like</string>
+    <string name="edit" >Edit</string>
+    <string name="chancel">Chancel</string>
 </resources>
