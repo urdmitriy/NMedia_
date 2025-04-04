@@ -43,7 +43,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
-        style="@style/App.Widget.ButtonStatic"
+        style="@style/App.Widget.ButtonMenu"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@android:color/transparent"
