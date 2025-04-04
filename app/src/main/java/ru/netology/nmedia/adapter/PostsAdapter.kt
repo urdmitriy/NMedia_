@@ -35,16 +35,12 @@ class PostViewHolder (
                 published.text = post.published
                 content.text = post.content
 
-                likes.setImageResource(
-                    if (post.likedByMe) {
-                        R.drawable.ic_liked_24
-                    } else {
-                        R.drawable.ic_like_24
-                    }
-                )
-                favoriteCount.text = getShortCount(post.likedCount)
-                sharedCount.text = getShortCount(post.sharedCount)
-                visibleCount.text = getShortCount(post.visibledCount)
+                likes.apply {
+                    isChecked = post.likedByMe
+                    text = getShortCount(post.likedCount)
+                }
+                shared.text = getShortCount(post.sharedCount)
+                visible.text = getShortCount(post.visibledCount)
 
 
                 likes.setOnClickListener {
