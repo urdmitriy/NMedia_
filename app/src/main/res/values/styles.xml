@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="App.Widget.LikeCheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/color_like_selector</item>
+        <item name="android:minWidth">?attr/minTouchTargetSize</item>
+        <item name="android:minHeight">?attr/minTouchTargetSize</item>
+    </style>
+    
+    <style name="App.Widget.Button" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="iconTint">@color/color_like_selector</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+    </style>
+
+    <style name="App.Widget.ButtonStatic" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="iconTint">?attr/colorControlNormal</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+    </style>
+
+    <style name="App.Widget.ButtonMenu" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="iconTint">?attr/colorControlNormal</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+    </style>
+</resources>
