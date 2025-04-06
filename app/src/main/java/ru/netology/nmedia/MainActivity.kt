@@ -1,9 +1,11 @@
 package ru.netology.nmedia
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -32,7 +34,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onShare(post: Post) {
-                viewModel.shareById(post.id)
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                    type = "text/plain"
+                }
+                val sharedIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
+                startActivity(sharedIntent)
             }
 
             override fun onVisible(post: Post) {
@@ -44,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEdit(post: Post) {
-                binding.groupEdit.visibility = View.VISIBLE
                 viewModel.edit(post)
             }
         })
@@ -52,50 +59,25 @@ class MainActivity : AppCompatActivity() {
         binding.list.adapter = adapter
 
         viewModel.data.observe(this) { posts ->
-            adapter.submitList(posts)
-        }
+            val isNewPost = posts.size > adapter.currentList.size
 
-        viewModel.edited.observe(this) { post ->
-            if (post.id == 0L) {
-                return@observe
-            }
-            with(binding.content){
-                requestFocus()
-                setText(post.content)
-            }
-        }
-
-        binding.chancel.setOnClickListener{
-            with(binding.content) {
-                viewModel.chancelEdit()
-                setText("")
-                clearFocus()
-                AndroidUtils.hideKeyboard(this)
-                binding.groupEdit.visibility = View.GONE
-            }
-
-        }
-
-        binding.save.setOnClickListener{
-            with(binding.content) {
-                if (text.isNullOrBlank()){
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Content can't be empty",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
+            adapter.submitList(posts) {
+                if (isNewPost) {
+                    binding.list.smoothScrollToPosition(0)
                 }
-                viewModel.changeContent(text.toString())
-                viewModel.save()
-
-                binding.groupEdit.visibility = View.GONE
-                setText("")
-                clearFocus()
-                AndroidUtils.hideKeyboard(this)
-
             }
         }
+
+        val newPostLauncher = registerForActivityResult(NewPostResultContract) { content ->
+            content ?: return@registerForActivityResult
+            viewModel.changeContent(content)
+            viewModel.save()
+        }
+
+        binding.fab.setOnClickListener{
+            newPostLauncher.launch()
+        }
+
     }
     private fun applyInset(main: View) {
         ViewCompat.setOnApplyWindowInsetsListener(main) { v, insets ->
