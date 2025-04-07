@@ -52,7 +52,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEdit(post: Post) {
-                viewModel.edit(post)
+                val editPostLauncher = registerForActivityResult(EditPostResultContract) { content ->
+                    content ?: return@registerForActivityResult
+                    viewModel.edit(post)
+                }
+
+                editPostLauncher.launch(post.content)
             }
         })
 
