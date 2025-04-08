@@ -3,10 +3,7 @@ package ru.netology.nmedia
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import ru.netology.nmedia.databinding.ActivityNewPostBinding
 
 class NewPostActivity : AppCompatActivity() {
@@ -14,6 +11,7 @@ class NewPostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityNewPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.edit.setText(intent.getStringExtra(Intent.EXTRA_TEXT))
         binding.edit.requestFocus()
         binding.ok.setOnClickListener{
             val content = binding.edit.text.toString()

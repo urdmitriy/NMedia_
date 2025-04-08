@@ -27,6 +27,14 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge() // "Включаем" адаптацию к полноэкранному режиму
         setContentView(binding.root)
         applyInset(binding.root) // Устанавливаем отступы с учётом клавиатуры
+        val editPostLauncher = registerForActivityResult(EditPostResultContract) { content ->
+            content ?: return@registerForActivityResult
+            viewModel.changeContent(content)
+            viewModel.save()
+        }
+        val videoPostLauncher = registerForActivityResult(VideoPostResultContract) { content ->
+            content ?: return@registerForActivityResult
+        }
 
         val adapter = PostsAdapter (object : OnInteractionListener {
             override fun onLike(post: Post) {
@@ -52,12 +60,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEdit(post: Post) {
-                val editPostLauncher = registerForActivityResult(EditPostResultContract) { content ->
-                    content ?: return@registerForActivityResult
-                    viewModel.edit(post)
-                }
-
                 editPostLauncher.launch(post.content)
+            }
+
+            override fun onVideo(post: Post) {
+                videoPostLauncher.launch(post.video.toString())
             }
         })
 
@@ -99,5 +106,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-

@@ -3,11 +3,12 @@ package ru.netology.nmedia
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.core.net.toUri
 
-object EditPostResultContract : ActivityResultContract<String, String?>(){
+object VideoPostResultContract : ActivityResultContract<String, String?>(){
     override fun createIntent(context: Context, input: String): Intent {
-        val intent = Intent(context, NewPostActivity::class.java).apply {
-            putExtra(Intent.EXTRA_TEXT, input)
+        val intent = Intent(context, VideoPostActivity::class.java).apply {
+            putExtra(Intent.ACTION_VIEW, input.toUri())
         }
         return intent
     }
