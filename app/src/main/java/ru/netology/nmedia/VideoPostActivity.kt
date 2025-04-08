@@ -12,21 +12,6 @@ class VideoPostActivity : AppCompatActivity() {
         val binding = PostCardBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.video.setVideoURI(intent.getStringExtra(Intent.ACTION_VIEW)?.toUri())
-
-//        binding.edit.setText(intet.getStringExtra(Intent.EXTRA_TEXT))
-//        binding.edit.requestFocus()
-//        binding.ok.setOnClickListener{
-//            val content = binding.edit.text.toString()
-//            if (content.isBlank()){
-//                setResult(Activity.RESULT_CANCELED)
-//            } else {
-//                Intent().apply {
-//                    putExtra(Intent.EXTRA_TEXT, content)
-//                }.let {
-//                    setResult(Activity.RESULT_OK, it)
-//                }
-//            }
-//            finish()
-//        }
+        binding.video.start()
     }
 }

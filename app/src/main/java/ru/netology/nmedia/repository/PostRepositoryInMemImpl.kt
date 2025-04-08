@@ -17,7 +17,7 @@ class PostRepositoryInMemImpl : PostRepository {
             likedCount = 1,
             sharedCount = 1,
             visibledCount = 10_100_110,
-            video = "https://rutube.ru/video/e340ea5e80553633c9c92f5d910bd271/"
+            video = "https://yandex.ru/video/preview/15223402515415483712"
         ),
             Post(
                 id = nextId++,
