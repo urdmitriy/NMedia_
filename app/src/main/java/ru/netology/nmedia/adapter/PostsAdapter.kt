@@ -54,8 +54,10 @@ class PostViewHolder (
                 if (post.video != null) {
 //                    video.setVideoURI(post.video.toUri())
                     video.visibility = VISIBLE
+                    play.visibility = VISIBLE
                 } else {
                     video.visibility = GONE
+                    play.visibility = GONE
                 }
 
                 video.setOnClickListener {

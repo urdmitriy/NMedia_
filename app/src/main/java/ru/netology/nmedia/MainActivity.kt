@@ -1,6 +1,7 @@
 package ru.netology.nmedia
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,7 +15,7 @@ import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.utils.AndroidUtils
+import androidx.core.net.toUri
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,13 +28,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge() // "Включаем" адаптацию к полноэкранному режиму
         setContentView(binding.root)
         applyInset(binding.root) // Устанавливаем отступы с учётом клавиатуры
+
         val editPostLauncher = registerForActivityResult(EditPostResultContract) { content ->
             content ?: return@registerForActivityResult
+
             viewModel.changeContent(content)
             viewModel.save()
-        }
-        val videoPostLauncher = registerForActivityResult(VideoPostResultContract) { content ->
-            content ?: return@registerForActivityResult
         }
 
         val adapter = PostsAdapter (object : OnInteractionListener {
@@ -60,11 +60,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEdit(post: Post) {
+                viewModel.edit(post)
                 editPostLauncher.launch(post.content)
             }
 
             override fun onVideo(post: Post) {
-                videoPostLauncher.launch(post.video.toString())
+                val videoIntent = Intent(Intent.ACTION_VIEW, post.video?.toUri())
+                startActivity(videoIntent)
             }
         })
 
