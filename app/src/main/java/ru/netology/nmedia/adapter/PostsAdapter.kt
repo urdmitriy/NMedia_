@@ -1,14 +1,23 @@
 package ru.netology.nmedia.adapter
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.activity.result.launch
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
 import ru.netology.nmedia.GetShortCount.getShortCount
+import ru.netology.nmedia.NewPostResultContract
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.PostCardBinding
 import ru.netology.nmedia.dto.Post
+import java.net.URI
+import androidx.core.net.toUri
 
 class PostsAdapter(private val onInteractionListener: OnInteractionListener): ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
 
@@ -42,6 +51,18 @@ class PostViewHolder (
                 shared.text = getShortCount(post.sharedCount)
                 visible.text = getShortCount(post.visibledCount)
 
+                if (post.video != null) {
+//                    video.setVideoURI(post.video.toUri())
+                    video.visibility = VISIBLE
+                    play.visibility = VISIBLE
+                } else {
+                    video.visibility = GONE
+                    play.visibility = GONE
+                }
+
+                video.setOnClickListener {
+                    onInteractionListener.onVideo(post)
+                }
 
                 likes.setOnClickListener {
                     onInteractionListener.onLike(post)
