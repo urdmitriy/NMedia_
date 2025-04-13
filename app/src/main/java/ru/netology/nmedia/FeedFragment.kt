@@ -1,40 +1,39 @@
 package ru.netology.nmedia
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.launch
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
-import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.dto.Post
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ru.netology.nmedia.NewPostFragment.Companion.textArg
+import ru.netology.nmedia.databinding.FragmentFeedBinding
 
 
-class MainActivity : AppCompatActivity() {
-    private val viewModel: PostViewModel by viewModels()
+class FeedFragment : Fragment() {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        enableEdgeToEdge() // "Включаем" адаптацию к полноэкранному режиму
-        setContentView(binding.root)
-        applyInset(binding.root) // Устанавливаем отступы с учётом клавиатуры
-
-        val editPostLauncher = registerForActivityResult(EditPostResultContract) { content ->
-            content ?: return@registerForActivityResult
-
-            viewModel.changeContent(content)
-            viewModel.save()
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentFeedBinding.inflate(inflater, container, false)
+        val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+//        val editPostLauncher = registerForActivityResult(EditPostResultContract) { content ->
+//            content ?: return@registerForActivityResult
+//
+//            viewModel.changeContent(content)
+//            viewModel.save()
+//        }
 
         val adapter = PostsAdapter (object : OnInteractionListener {
             override fun onLike(post: Post) {
@@ -61,7 +60,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                editPostLauncher.launch(post.content)
+                findNavController().navigate(R.id.action_feedFragment_to_newPostFragment,
+                    Bundle().apply {
+                        textArg = post.content
+                    })
+//                editPostLauncher.launch(post.content)
             }
 
             override fun onVideo(post: Post) {
@@ -72,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.list.adapter = adapter
 
-        viewModel.data.observe(this) { posts ->
+        viewModel.data.observe(viewLifecycleOwner) { posts ->
             val isNewPost = posts.size > adapter.currentList.size
 
             adapter.submitList(posts) {
@@ -82,17 +85,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val newPostLauncher = registerForActivityResult(NewPostResultContract) { content ->
-            content ?: return@registerForActivityResult
-            viewModel.changeContent(content)
-            viewModel.save()
-        }
-
         binding.fab.setOnClickListener{
-            newPostLauncher.launch()
+            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
 
+        applyInset(binding.root) // Устанавливаем отступы с учётом клавиатуры
+
+        return binding.root
     }
+
     private fun applyInset(main: View) {
         ViewCompat.setOnApplyWindowInsetsListener(main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

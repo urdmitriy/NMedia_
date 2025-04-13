@@ -47,8 +47,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.activity)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
     implementation(libs.firebase.crashlytics.buildtools)
     implementation(libs.android.gson)
+
     testImplementation(libs.junit)
     testImplementation(libs.androidx.core.ktx)
     androidTestImplementation(libs.androidx.junit)
