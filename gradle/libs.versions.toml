@@ -13,6 +13,8 @@ activity = "1.10.1"
 arch_version = "2.2.0"
 activityVersion = "1.10.1"
 recyclerviewVersion = "1.4.0"
+firebaseCrashlyticsBuildtools = "3.0.3"
+gson = "2.13.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,6 +30,8 @@ androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-
 androidx-arch-core = { group = "androidx.arch.core", name = "core-testing", version.ref = "arch_version" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activityVersion" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerviewVersion" }
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
+android-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
